@@ -25,6 +25,7 @@ Enjoy! Simple scroller will do the rest. Add your own css styling if required.
 ### License
 
 Copyright 2011, Christopher Finch
+
 Licensed under the GPL Version 3 license.
 
 Continued from my initial work at Hovr (http://www.hovr.co)
