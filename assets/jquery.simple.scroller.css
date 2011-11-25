@@ -1,18 +1,18 @@
-/* Scrollr */
+/* simpleScroller */
 
-.scrollr-viewport {
+.simpleScroller-viewport {
 	overflow: hidden;
 	position: relative;
 }
 
-.scrollr-inner {
+.simpleScroller-inner {
 	position: absolute;
 	top: 0;
 	left: 0;
 	padding: 0 16px 0 0;
 }
 
-.scrollr-scrollbar {
+.simpleScroller-scrollbar {
     background-color: #fff;
     display: block;
     position: absolute;
@@ -22,7 +22,7 @@
     z-index: 999;
 }
 
-.scrollr-handle {
+.simpleScroller-handle {
 	width: 8px;
 	height: 30px;
 	position: absolute;

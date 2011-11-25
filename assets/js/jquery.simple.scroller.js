@@ -1,11 +1,35 @@
-// Scrollr  
+/*
+*
+* jquery.simple.scroller.js
+* A query plugin for cross browser compatible scrollbar replacement on html elements.
+*
+* Copyright 2011, Christopher Finch
+* Licensed under the GPL Version 3 license.
+*
+* Date: Fri 24th november 2011
+*
+*
+* This program is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 3 of the License, or
+* (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+* GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License
+* along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*
+*/
+
 (function ($) {
     var methods = {
         init: function (options) {
-            // THIS
             return this.each(function () {
-                var self = $(this).addClass('scrollr-self').css('overflow', 'hidden'),
-                    data = self.data('scrollr');
+                var self = $(this).addClass('simpleScroller-self').css('overflow', 'hidden'),
+                    data = self.data('simpleScroller');
                 if (!data) {
                     // Defaults
                     var opts = $.extend({
@@ -15,27 +39,27 @@
                         'offSet': 0
                     }, options);
                     // wrap element in viewport div
-                    opts.inner = $('<div></div>').addClass('scrollr-inner');
-                    opts.viewPort = $('<div></div>').addClass('scrollr-viewport').css({
+                    opts.inner = $('<div></div>').addClass('simpleScroller-inner');
+                    opts.viewPort = $('<div></div>').addClass('simpleScroller-viewport').css({
                         'height': opts.height,
                         'width': opts.width
                     });
                     self.wrapInner(opts.inner);
                     self.wrapInner(opts.viewPort);
-                    opts.inner = self.find('.scrollr-inner');
-                    opts.viewPort = self.find('.scrollr-viewport');
+                    opts.inner = self.find('.simpleScroller-inner');
+                    opts.viewPort = self.find('.simpleScroller-viewport');
                     // get inner height of elements
                     opts.inner.children().each(function (i, e) {
                         opts.innerHeight = opts.innerHeight + $(e).outerHeight();
                     });
                     opts.inner.css('height', opts.innerHeight + 'px');
                     // Add scrollbar
-                    opts.handle = $('<div></div>').addClass('scrollr-handle');
-                    opts.scrollbar = $('<div></div>').addClass('scrollr-scrollbar').css('height', opts.height).append(opts.handle);
+                    opts.handle = $('<div></div>').addClass('simpleScroller-handle');
+                    opts.scrollbar = $('<div></div>').addClass('simpleScroller-scrollbar').css('height', opts.height).append(opts.handle);
                     opts.scrollbar.appendTo(opts.viewPort)
-                    opts.handle = self.find('.scrollr-handle');
-                    opts.scrollbar = self.find('.scrollr-scrollbar');
-
+                    opts.handle = self.find('.simpleScroller-handle');
+                    opts.scrollbar = self.find('.simpleScroller-scrollbar');
+					// mouse wheel stuff
                     function mwheel() {
                         opts.viewPort.bind('mousewheel', function (event, delta) {
                             event.preventDefault();
@@ -59,12 +83,12 @@
                             });
                         });
                     };
-
+					// percentage conversion of measurements
                     function percent(p) {
                         per = Math.floor(((p / (opts.scrollbar.height() - opts.handle.height())) * 100));
                         return (((opts.innerHeight - opts.viewPort.height()) / 100) * per);
                     };
-
+					// Scrolling animation
                     function scroll(s, animate) {
                         if (animate) {
                             opts.inner.animate({
@@ -75,11 +99,10 @@
                         }
                         opts.offSet = percent(s);
                     };
-
+					// Handle…..handler!
                     function handle() {
                         opts.handle.dragger = opts.handle;
                         opts.handle.maxTop = opts.scrollbar.height() - opts.handle.height();
-                        // START DRAGGABLE
                         opts.handle.bind('mousedown', function (e) {
                             e.preventDefault();
                             opts.handle.mousePageY = e.pageY, opts.handle.dragPos = opts.handle.dragger.position().top, opts.handle.leftPos, opts.handle.topPos;
@@ -110,9 +133,8 @@
                                 }
                             });
                         });
-                        // END DRAGGABLE
                     };
-
+					// Clickable scrollbar
                     function scrollbar() {
                         opts.scrollbar.bind('click', function (e) {
                             if (e.originalEvent.originalTarget.className != opts.handle.dragger.attr('class')) {
@@ -142,19 +164,19 @@
                     handle();
                     mwheel();
                     scrollbar();
-                    self.data('scrollr', opts); //pass data for other functions
+                    self.data('simpleScroller', opts); //pass data for other functions if needed
                 }
             });
         }
     };
-    $.fn.scrollr = function (method) {
+    $.fn.simpleScroller = function (method) {
         // Method calling logic
         if (methods[method]) {
             return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
         } else if (typeof method === 'object' || !method) {
             return methods.init.apply(this, arguments);
         } else {
-            $.error('Method ' + method + ' does not exist on jQuery.scrollr');
+            $.error('Method ' + method + ' does not exist on jQuery.simpleScroller');
         }
     };
 })(jQuery);

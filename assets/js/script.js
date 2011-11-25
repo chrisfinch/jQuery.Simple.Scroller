@@ -3,8 +3,8 @@
 
 $(document).ready(function () {
 	
-	$('.content1').scrollr();
-	$('.content2').scrollr();
-	$('.content3').scrollr();
+	$('.content1').simpleScroller();
+	$('.content2').simpleScroller();
+	$('.content3').simpleScroller();
  
 });
