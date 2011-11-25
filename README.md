@@ -16,7 +16,7 @@ Initialise the plugin on the relative element:
 
 	$(document).ready(function () {
 		
-		$('.content1').scrollr();
+		$('.content1').simpleScroller();
 		 
 	});
 
